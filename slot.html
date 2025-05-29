@@ -3,243 +3,146 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Alfabit Promo Slots</title>
+  <title>Alfabit Slots: Real Spin</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      background: radial-gradient(ellipse at center, #10151a 0%, #0a0a0a 100%);
       font-family: 'Orbitron', sans-serif;
+      background: radial-gradient(circle, #0d1117 0%, #000 100%);
       color: #00ffc2;
-      padding: 0;
-    }
-    .slot-container {
-      max-width: 500px;
-      margin: 0 auto;
-      padding: 20px 16px;
       text-align: center;
+      padding: 20px;
     }
     h1 {
       font-size: 24px;
-      margin-bottom: 10px;
     }
-    .promo-intro {
-      font-size: 15px;
-      color: #ccc;
-      margin-bottom: 20px;
-    }
-    .reel-frame {
+    .slot-machine {
+      margin: 30px auto;
+      max-width: 360px;
       display: flex;
       justify-content: center;
-      gap: 12px;
-      background: #1d1f22;
-      border: 4px solid #00ffc2;
-      border-radius: 20px;
-      padding: 10px;
-      box-shadow: 0 0 20px #00ffc2aa;
+      gap: 10px;
     }
-    .reel {
+    .reel-container {
       width: 80px;
       height: 240px;
       overflow: hidden;
-      border: 2px solid #00ffc2;
-      border-radius: 12px;
-      background: #0f0f0f;
-      box-shadow: inset 0 0 10px #00ffc244;
+      border: 3px solid #00ffc2;
+      border-radius: 10px;
+      background: #111;
+      position: relative;
     }
-    .symbols {
+    .reel-strip {
       display: flex;
       flex-direction: column;
-      transition: transform 1.8s cubic-bezier(0.33, 1, 0.68, 1);
+      animation: spin 2s cubic-bezier(0.33, 1, 0.68, 1) forwards;
     }
     .symbol {
+      font-size: 48px;
       height: 80px;
-      font-size: 52px;
-      text-align: center;
       line-height: 80px;
-      user-select: none;
     }
     .spin-btn {
-      margin-top: 20px;
-      padding: 12px 30px;
-      background: linear-gradient(to right, #00ffc2, #00baba);
-      color: #191b1f;
-      border: none;
-      border-radius: 10px;
-      font-weight: bold;
+      padding: 12px 24px;
       font-size: 18px;
-      box-shadow: 0 0 15px #00ffc255;
+      background: linear-gradient(to right, #00ffc2, #00baba);
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-weight: bold;
       cursor: pointer;
-    }
-    .result, .promo-block, .lead-form, .rules {
       margin-top: 20px;
+      box-shadow: 0 0 10px #00ffc288;
     }
-    .promo-block {
+    .promo {
+      margin-top: 20px;
+      display: none;
       background: #13171d;
       padding: 16px;
-      border-radius: 12px;
       border: 1px dashed #00ffc2;
-      display: none;
-    }
-    .promo-code {
-      font-size: 24px;
-      font-weight: bold;
-    }
-    .claim-link {
-      display: inline-block;
-      margin-top: 8px;
-      text-decoration: none;
-      color: #191b1f;
-      background: #00ffc2;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-weight: 600;
-    }
-    .lead-form {
-      display: none;
-      flex-direction: column;
-      gap: 10px;
-      align-items: center;
-    }
-    .lead-form input {
-      padding: 10px;
-      border-radius: 6px;
-      border: none;
-      width: 100%;
-      max-width: 320px;
-      font-size: 16px;
-    }
-    .lead-form button {
-      background: #00ffc2;
-      color: #191b1f;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .rules {
-      font-size: 14px;
-      color: #999;
-      text-align: left;
-      margin-top: 30px;
-      background: #111;
-      padding: 14px;
       border-radius: 12px;
-      border: 1px solid #222;
     }
-    .rules strong {
-      color: #fff;
+    .promo strong {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 10px;
     }
-
-    @media (max-width: 400px) {
-      .symbol { font-size: 40px; }
-      .reel { width: 70px; height: 200px; }
+    @keyframes spin {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-1440px); } /* 18 symbols x 80px */
     }
   </style>
 </head>
 <body>
 
-  <div class="slot-container">
-    <h1>🎰 Крипто-рулетка от Alfabit</h1>
-    <p class="promo-intro">
-      Прокрути и получи промокод до <strong>$50</strong>!<br/>
-      Все выигрыши можно использовать на <a href="https://alfabit.org" target="_blank" style="color:#00ffc2;font-weight:bold;">alfabit.org</a> — самой технологичной бирже криптовалют.
-    </p>
+  <h1>🎰 Alfabit Крипто-слоты</h1>
+  <p>Крути барабаны и получи приз, который можно активировать на <a href="https://alfabit.org" target="_blank" style="color:#00ffc2">alfabit.org</a></p>
 
-    <div class="reel-frame">
-      <div class="reel"><div class="symbols" id="reel1"></div></div>
-      <div class="reel"><div class="symbols" id="reel2"></div></div>
-      <div class="reel"><div class="symbols" id="reel3"></div></div>
-    </div>
+  <div class="slot-machine">
+    <div class="reel-container"><div class="reel-strip" id="reel1"></div></div>
+    <div class="reel-container"><div class="reel-strip" id="reel2"></div></div>
+    <div class="reel-container"><div class="reel-strip" id="reel3"></div></div>
+  </div>
 
-    <button class="spin-btn" onclick="pullHandle()">Крутить</button>
-    <div class="result" id="result"></div>
+  <button class="spin-btn" onclick="spinReels()">Крутить</button>
 
-    <div class="promo-block" id="promoBlock">
-      <div class="promo-code" id="promoCode">ALFA-XXXX</div>
-      <a href="https://alfabit.org" target="_blank" class="claim-link">Забрать на Alfabit</a>
-    </div>
-
-    <form class="lead-form" id="leadForm" onsubmit="submitLead(event)">
-      <input type="email" id="email" placeholder="Ваш email для получения приза" required />
-      <button type="submit">Получить приз</button>
-      <div id="formMsg" style="font-size:14px;color:#00ffc2;"></div>
-    </form>
-
-    <div class="rules">
-      <p><strong>Правила участия:</strong></p>
-      <ul>
-        <li>Каждому пользователю даётся <strong>1 попытка в сутки</strong>.</li>
-        <li>Призовой промокод появляется сразу после прокрутки.</li>
-        <li>Чтобы получить приз, введите свой email — промокод будет отправлен туда.</li>
-        <li>Промокод можно активировать на <a href="https://alfabit.org" target="_blank">alfabit.org</a>.</li>
-        <li>Количество крупных призов ограничено — действуй сейчас!</li>
-      </ul>
-    </div>
+  <div class="promo" id="promoBlock">
+    <strong>🎉 Вы выиграли промокод!</strong>
+    <div id="promoCode">ALFA-XXXX</div>
+    <a href="https://alfabit.org" target="_blank" style="display:inline-block;margin-top:10px;color:#000;background:#00ffc2;padding:10px 14px;border-radius:8px;text-decoration:none;">Забрать на Alfabit</a>
   </div>
 
   <audio id="soundSpin" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4fa9c44b39.mp3?filename=arcade-magic-spin-24043.mp3"></audio>
   <audio id="soundWin" src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_020b2c070e.mp3?filename=success-1-6297.mp3"></audio>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
   <script>
-    const emojis = ['💎','🔥','🍀','🎲','💰','🪙','🧿'];
+    const symbols = ['💎','🔥','🍀','🎲','💰','🪙','🧿'];
     const prizeMap = {
-      '💎💎💎': { text: '$50 приз', code: 'WIN50-ALFA' },
-      '🔥🔥🔥': { text: '$25 приз', code: 'HOT25-ALFA' },
-      '🍀🍀🍀': { text: 'Mystery Box', code: 'LUCKY-BOX' },
-      'default': { text: '$5 бонус', code: 'BONUS5-ALFA' }
+      '💎💎💎': 'WIN50-ALFA',
+      '🔥🔥🔥': 'HOT25-ALFA',
+      '🍀🍀🍀': 'LUCKY-BOX',
+      'default': 'BONUS5-ALFA'
     };
 
-    function buildReels() {
-      ['reel1', 'reel2', 'reel3'].forEach(id => {
-        const el = document.getElementById(id);
-        el.innerHTML = '';
-        for (let i = 0; i < 20; i++) {
-          const sym = document.createElement('div');
-          sym.className = 'symbol';
-          sym.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-          el.appendChild(sym);
-        }
-      });
+    function fillReel(id) {
+      const reel = document.getElementById(id);
+      reel.innerHTML = '';
+      for (let i = 0; i < 18; i++) {
+        const el = document.createElement('div');
+        el.className = 'symbol';
+        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        reel.appendChild(el);
+      }
     }
 
-    function pullHandle() {
-      document.getElementById('soundSpin').play();
-      buildReels();
-      const results = [];
-      ['reel1','reel2','reel3'].forEach((id, idx) => {
+    function spinReels() {
+      document.getElementById("soundSpin").play();
+      ['reel1','reel2','reel3'].forEach((id, i) => {
         const reel = document.getElementById(id);
-        const offset = Math.floor(Math.random() * 15) + 2;
-        const translateY = offset * 80;
-        setTimeout(() => {
-          reel.style.transform = `translateY(-${translateY}px)`;
-          const sym = reel.children[offset + 1].textContent;
-          results[idx] = sym;
-          if (results.filter(Boolean).length === 3) showResult(results);
-        }, idx * 500);
+        reel.style.animation = 'none';
+        reel.offsetHeight; // force reflow
+        fillReel(id);
+        reel.style.animation = `spin ${2 + i * 0.3}s cubic-bezier(0.33, 1, 0.68, 1) forwards`;
       });
+
+      setTimeout(showResult, 2800);
     }
 
-    function showResult(res) {
-      const combo = res.join('');
-      const prize = prizeMap[combo] || prizeMap['default'];
-      document.getElementById('soundWin').play();
-      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-      document.getElementById('result').textContent = `🎉 Вы выиграли: ${prize.text}`;
-      document.getElementById('promoCode').textContent = prize.code;
-      document.getElementById('promoBlock').style.display = 'block';
-      document.getElementById('leadForm').style.display = 'flex';
+    function showResult() {
+      document.getElementById("soundWin").play();
+      const r1 = document.getElementById("reel1").children[6].textContent;
+      const r2 = document.getElementById("reel2").children[6].textContent;
+      const r3 = document.getElementById("reel3").children[6].textContent;
+      const combo = r1 + r2 + r3;
+      const code = prizeMap[combo] || prizeMap['default'];
+      document.getElementById("promoCode").textContent = code;
+      document.getElementById("promoBlock").style.display = "block";
     }
 
-    function submitLead(e) {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      document.getElementById('formMsg').textContent = `🎁 Промокод отправлен на ${email}`;
-      document.getElementById('email').disabled = true;
-    }
-
-    buildReels();
+    fillReel("reel1");
+    fillReel("reel2");
+    fillReel("reel3");
   </script>
 </body>
 </html>
