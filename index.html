@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Колесо промокодов</title>
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:400,700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Roboto', sans-serif;
@@ -12,18 +12,21 @@
       color: #ffffff;
       margin: 0;
       padding: 40px 20px;
+      overflow-x: hidden;
     }
     h1 {
-      font-size: 28px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 32px;
       margin-bottom: 20px;
       color: #f7a600;
+      text-shadow: 0 0 10px rgba(247, 166, 0, 0.6);
     }
     canvas {
       margin: 0 auto 20px;
       display: block;
       background-color: #1e1e1e;
       border-radius: 50%;
-      box-shadow: 0 0 20px rgba(255, 193, 7, 0.4);
+      box-shadow: 0 0 25px rgba(255, 193, 7, 0.5);
     }
     #spin {
       font-size: 20px;
@@ -35,6 +38,7 @@
       cursor: pointer;
       font-weight: bold;
       transition: background-color 0.3s ease;
+      box-shadow: 0 0 15px rgba(247, 166, 0, 0.5);
     }
     #spin:hover {
       background-color: #e69500;
@@ -44,29 +48,36 @@
       font-size: 24px;
       font-weight: bold;
       color: #00e676;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1px;
     }
     .promo-section {
-      margin-top: 40px;
+      margin-top: 50px;
     }
     input[type="text"] {
-      padding: 12px;
-      width: 250px;
+      padding: 14px;
+      width: 260px;
       font-size: 18px;
-      border-radius: 6px;
-      border: none;
-      outline: none;
+      border-radius: 8px;
+      border: 2px solid #f7a600;
+      background-color: #1e1e1e;
+      color: #fff;
       text-align: center;
+      outline: none;
+      box-shadow: 0 0 10px rgba(247, 166, 0, 0.4);
     }
     button#apply {
       margin-left: 10px;
-      padding: 12px 20px;
+      padding: 14px 22px;
       font-size: 18px;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       background-color: #f7a600;
       color: #121212;
       font-weight: bold;
       cursor: pointer;
+      transition: background 0.3s ease;
+      box-shadow: 0 0 15px rgba(247, 166, 0, 0.5);
     }
     button#apply:hover {
       background-color: #e69500;
@@ -74,12 +85,13 @@
     #message {
       margin-top: 30px;
       font-size: 20px;
-      padding: 15px;
-      background: linear-gradient(to right, #1b1b1b, #292929);
+      padding: 20px;
+      background: linear-gradient(to right, #1f1f1f, #292929);
       border: 2px solid #f7a600;
-      border-radius: 8px;
+      border-radius: 10px;
       display: none;
       animation: fadeIn 1s ease-in-out;
+      box-shadow: 0 0 20px rgba(247, 166, 0, 0.3);
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.95); }
@@ -94,6 +106,7 @@
       background: #f7a600;
       border-radius: 50%;
       animation: explode 0.8s ease-out forwards;
+      pointer-events: none;
     }
     @keyframes explode {
       0% { transform: scale(1); opacity: 1; }
@@ -103,13 +116,13 @@
 </head>
 <body>
 
-<h1>🎯 Крути колесо и получи промокод!</h1>
+<h1>🚀 Колесо удачи: получи свой бонус!</h1>
 <canvas id="wheel" width="400" height="400"></canvas>
 <button id="spin">КРУТИТЬ</button>
 <div id="result"></div>
 
 <div class="promo-section">
-  <h2 style="color:#f7a600;">🎁 Активируй свой промокод</h2>
+  <h2 style="color:#f7a600;">🎁 Активируй промокод</h2>
   <input type="text" id="promoInput" placeholder="Введите промокод">
   <button id="apply">Применить</button>
   <div id="message"></div>
@@ -157,7 +170,7 @@
       ctx.restore();
     }
     ctx.restore();
-    // pointer
+    // стрелка
     ctx.beginPath();
     ctx.moveTo(radius - 10, 10);
     ctx.lineTo(radius + 10, 10);
@@ -189,7 +202,9 @@
         drawWheel(currentAngle);
         const normalizedAngle = (2 * Math.PI - (currentAngle % (2 * Math.PI))) % (2 * Math.PI);
         const index = Math.floor(normalizedAngle / segmentAngle) % prizes.length;
-        document.getElementById('result').textContent = `🎉 Ваш промокод: ${prizes[index]}`;
+        const prize = prizes[index];
+        document.getElementById('result').textContent = `🎉 Ваш промокод: ${prize}`;
+        document.getElementById('promoInput').value = prize;
         spinning = false;
       }
     }
@@ -202,9 +217,9 @@
     if (prizes.includes(input)) {
       showFireworks();
       message.innerHTML = `
-        ✅ Вы активировали промокод <b>${input}</b><br><br>
-        💰 Вы выиграли <span style="color:#00e676;">$50</span>!<br>
-        👉 Чтобы получить деньги, <b><a href="https://alfabit.org" target="_blank" style="color:#f7a600;">пройдите регистрацию на alfabit.org</a></b>
+        ✅ Промокод <b>${input}</b> активирован!<br><br>
+        💸 Вы выиграли <span style="color:#00e676;">$50</span><br>
+        🔐 Чтобы получить деньги, <b><a href="https://alfabit.org" target="_blank" style="color:#f7a600;">пройдите регистрацию на alfabit.org</a></b>
       `;
       message.style.display = 'block';
     } else {
@@ -214,11 +229,11 @@
   });
 
   function showFireworks() {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 12; i++) {
       const fw = document.createElement('div');
       fw.className = 'firework';
-      fw.style.top = (50 + Math.random() * 20 - 10) + '%';
-      fw.style.left = (50 + Math.random() * 20 - 10) + '%';
+      fw.style.top = (40 + Math.random() * 20) + '%';
+      fw.style.left = (40 + Math.random() * 20) + '%';
       fw.style.backgroundColor = ['#f7a600', '#00e676', '#ff4081'][Math.floor(Math.random() * 3)];
       document.body.appendChild(fw);
       setTimeout(() => fw.remove(), 800);
