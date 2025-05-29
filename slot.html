@@ -3,280 +3,296 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🎰 Премиум Слот от Alfabit</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <title>Alfabit | Крипто-слоты</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      background: linear-gradient(to bottom, #000, #1a1a1a);
+      background: #0a0a0a;
+      font-family: 'Inter', Arial, sans-serif;
       color: #fff;
-      font-family: 'Orbitron', sans-serif;
-      text-align: center;
-      padding: 30px 15px;
+      padding-bottom: 120px;
     }
 
-    h1 {
-      font-size: 36px;
-      color: gold;
-      text-shadow: 0 0 12px gold;
-      margin-bottom: 10px;
+    /* ====================== HEADER ==================== */
+    .header {
+      background: #13171d;
+      border-bottom: 1.5px solid #23262f;
+      padding: 0;
+      position: relative;
+      z-index: 100;
     }
-
-    .info {
-      font-size: 14px;
-      margin-bottom: 20px;
-      color: #ccc;
-    }
-
-    .slot-machine-container {
-      max-width: 400px;
+    .header-inner {
+      max-width: 1200px;
       margin: 0 auto;
-      background: radial-gradient(circle, #111, #000);
-      border: 6px solid gold;
-      border-radius: 20px;
-      box-shadow: 0 0 40px gold;
-      padding: 30px 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .reels {
+      padding: 0 20px;
+      height: 62px;
       display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .reel {
-      width: 90px;
-      height: 90px;
-      overflow: hidden;
-      background: #222;
-      border: 2px solid #fff;
-      border-radius: 10px;
-      box-shadow: inset 0 0 15px #444;
-      position: relative;
-    }
-
-    .symbols {
-      position: absolute;
-      top: 0;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
       align-items: center;
-      transition: transform 1.2s ease-out;
+      justify-content: space-between;
     }
-
-    .symbol {
-      font-size: 60px;
-      height: 90px;
-      line-height: 90px;
+    .logo-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #00ffc2;
+      font-weight: 700;
+      font-size: 24px;
     }
-
-    .handle {
-      position: absolute;
-      right: 10px;
-      top: 20px;
-      width: 15px;
-      height: 100px;
-      background: linear-gradient(to bottom, #ccc, #999);
-      border-radius: 10px;
-      cursor: pointer;
-      transform-origin: top;
-      transition: transform 0.3s;
-      z-index: 2;
+    .logo-link svg {
+      height: 28px;
+      width: 28px;
+      vertical-align: middle;
+      margin-right: 2px;
     }
-
-    .handle:after {
-      content: "";
-      position: absolute;
-      bottom: -18px;
-      left: -7px;
-      width: 30px;
-      height: 30px;
-      background: radial-gradient(circle at center, red, darkred);
-      border-radius: 50%;
-      box-shadow: 0 0 8px red;
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
     }
-
-    .handle.active {
-      transform: rotate(35deg);
+    .nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
+      position: relative;
+      padding: 3px 0;
+      transition: color 0.18s;
     }
-
-    .result {
-      font-size: 20px;
-      margin: 20px 0;
-      color: #00ffcc;
+    .nav a:hover, .nav a.active {
+      color: #00ffc2;
     }
-
-    .promo {
-      display: inline-block;
-      background: #111;
-      border: 1px solid #00ffcc;
-      padding: 10px 20px;
-      font-family: monospace;
-      font-size: 18px;
+    .header-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .btn {
+      padding: 7px 18px;
       border-radius: 6px;
-      color: #00ffcc;
-      margin-top: 10px;
-    }
-
-    .copy-btn, .claim {
-      margin-top: 10px;
-      display: inline-block;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      background: #00ffcc;
-      color: #000;
-      font-weight: bold;
+      border: 1.5px solid #00ffc2;
+      color: #00ffc2;
+      font-size: 15px;
+      background: transparent;
+      font-weight: 600;
       cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+      outline: none;
       text-decoration: none;
     }
-
-    .rules {
-      font-size: 13px;
-      color: #aaa;
-      margin-top: 30px;
+    .btn.primary {
+      background: linear-gradient(90deg, #00ffc2 0%, #00baba 100%);
+      color: #191b1f;
+      border: none;
+      font-weight: 700;
+      box-shadow: 0 1px 8px #00ffc21c;
     }
-
-    footer {
-      margin-top: 40px;
-      font-size: 14px;
-      color: #777;
+    .btn:hover {
+      background: #00ffc2;
+      color: #13171d;
+      border-color: #00ffc2;
     }
-
-    @media (max-width: 480px) {
-      .reel {
-        width: 70px;
-        height: 70px;
+    .btn.primary:hover {
+      background: #0fffdc;
+      color: #23262f;
+    }
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+      margin-left: 18px;
+    }
+    .burger span {
+      display: block;
+      height: 3px;
+      width: 26px;
+      background: #00ffc2;
+      border-radius: 3px;
+    }
+    /* ================= MOBILE ================= */
+    @media (max-width: 900px) {
+      .header-inner {
+        max-width: 100vw;
+        padding: 0 12px;
       }
-
-      .symbol {
-        font-size: 48px;
-        height: 70px;
-        line-height: 70px;
+      .nav {
+        gap: 14px;
       }
-
-      .handle {
-        top: 10px;
-        right: 5px;
-        height: 70px;
-        width: 10px;
+    }
+    @media (max-width: 700px) {
+      .header-inner {
+        height: 54px;
       }
-
-      .handle:after {
-        width: 20px;
-        height: 20px;
-        left: -5px;
-        bottom: -15px;
+      .logo-link {
+        font-size: 19px;
+      }
+      .nav {
+        position: absolute;
+        top: 54px;
+        left: 0;
+        right: 0;
+        background: #171d22;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 10px 0 8px 20px;
+        display: none;
+      }
+      .nav.open {
+        display: flex;
+      }
+      .header-actions {
+        gap: 6px;
+      }
+      .burger {
+        display: flex;
       }
     }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
+  <!-- ======= HEADER ======= -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="https://alfabit.org/" class="logo-link" aria-label="Alfabit">
+        <!-- SVG-логотип Alfabit или fallback текст -->
+        <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#00ffc2"/><text x="8" y="22" font-size="13" fill="#191b1f" font-family="Inter,Arial,sans-serif">A</text></svg>
+        Alfabit
+      </a>
+      <nav class="nav" id="nav">
+        <a href="#">Биржа</a>
+        <a href="#">Кошелёк</a>
+        <a href="#">Обмен</a>
+        <a href="#">Поддержка</a>
+      </nav>
+      <div class="header-actions">
+        <a href="#" class="btn">Войти</a>
+        <a href="#" class="btn primary">Регистрация</a>
+        <div class="burger" id="burger" aria-label="Меню" tabindex="0">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<h1>🎰 Премиум слот от Alfabit</h1>
-<div class="info">
-  Выигрывай до $50 и обменивай на крипту на <a href="https://alfabit.org" style="color:gold;">alfabit.org</a><br/>
-  Примерные курсы: 1 TON ≈ 3.2 USD | 1 BTC ≈ 68,000 USD | 1 ETH ≈ 3,600 USD
-</div>
+  <script>
+    // Адаптивное бургер-меню
+    const burger = document.getElementById('burger');
+    const nav = document.getElementById('nav');
+    burger.addEventListener('click', () => {
+      nav.classList.toggle('open');
+    });
+    burger.addEventListener('keypress', e => {
+      if(e.key==='Enter'){nav.classList.toggle('open');}
+    });
+  </script>
 
-<div class="slot-machine-container">
-  <div class="reels">
-    <div class="reel"><div class="symbols" id="reel1"></div></div>
-    <div class="reel"><div class="symbols" id="reel2"></div></div>
-    <div class="reel"><div class="symbols" id="reel3"></div></div>
-  </div>
-  <div class="handle" id="handle" onclick="pullHandle()"></div>
-  <div class="result" id="result"></div>
-  <div id="promoBlock" style="display:none;">
-    <div class="promo" id="promoCode">---</div><br>
-    <button class="copy-btn" onclick="copyCode()">Скопировать</button>
-    <a class="claim" id="claimLink" href="#" target="_blank">Перейти на Alfabit.org</a>
-  </div>
-</div>
+  <!-- ========== КОНТЕНТ ========== -->
 
-<div class="rules">
-  Правила выигрыша:<br/>
-  💎💎💎 → $50 | 🔥🔥🔥 → $25 | 🍀🍀🍀 → Mystery Box<br/>
-  Любая другая комбинация → $5 бонус
-</div>
+  <main>
+    <div style="max-width:400px;margin:40px auto 0 auto;">
+      <!-- Слот-машина (как раньше, но стили подогнаны под новый фон) -->
+      <div class="slot-machine-container" style="margin-top:32px;">
+        <div class="reels">
+          <div class="reel"><div class="symbols" id="reel1"></div></div>
+          <div class="reel"><div class="symbols" id="reel2"></div></div>
+          <div class="reel"><div class="symbols" id="reel3"></div></div>
+        </div>
+        <div class="handle" id="handle" onclick="pullHandle()"></div>
+        <div class="result" id="result"></div>
+        <div id="promoBlock" style="display:none;">
+          <div class="promo" id="promoCode">---</div><br>
+          <button class="copy-btn" onclick="copyCode()">Скопировать</button>
+          <a class="claim" id="claimLink" href="#" target="_blank">Перейти на Alfabit.org</a>
+        </div>
+      </div>
+      <div class="rules" style="text-align:center;margin:22px 0 0 0;">
+        Правила:<br/>
+        💎💎💎 → $50 | 🔥🔥🔥 → $25 | 🍀🍀🍀 → Mystery Box | Остальное → $5 бонус
+      </div>
+      <div style="color:#00ffc2;font-size:13px;margin:22px 0 0 0;">
+        Курс обмена (пример): 1 TON ≈ 3.2 USD, 1 BTC ≈ 68,000 USD, 1 ETH ≈ 3,600 USD<br>
+        Призы можно обменять на <a href="https://alfabit.org/" style="color:#fff;text-decoration:underline;">alfabit.org</a>
+      </div>
+    </div>
+  </main>
 
-<footer>
-  © Alfabit.org — получи приз и обменяй на TON, BTC или ETH
-</footer>
+  <footer style="margin:45px 0 0 0;text-align:center;color:#4dd;opacity:0.5;font-size:14px">
+    © Alfabit.org — получи крипто-приз и обменяй на TON, BTC, ETH
+  </footer>
 
-<audio id="handleSound" src="https://cdn.pixabay.com/download/audio/2022/10/12/audio_6ef51a0b60.mp3?filename=lever-pull-112441.mp3" preload="auto"></audio>
-<audio id="winSound" src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_020b2c070e.mp3?filename=success-1-6297.mp3" preload="auto"></audio>
+  <audio id="handleSound" src="https://cdn.pixabay.com/download/audio/2022/10/12/audio_6ef51a0b60.mp3?filename=lever-pull-112441.mp3" preload="auto"></audio>
+  <audio id="winSound" src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_020b2c070e.mp3?filename=success-1-6297.mp3" preload="auto"></audio>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    // Slot code
+    const emojis = ['💎','🔥','🍀','🎲','💰','🪙'];
+    const prizeMap = {
+      '💎💎💎': { text: '$50 на баланс', code: 'USD50-ALFA' },
+      '🔥🔥🔥': { text: '$25 скидка', code: 'DISC25-X8G' },
+      '🍀🍀🍀': { text: 'Mystery Box', code: 'MYSTERY-BX5' },
+      'default': { text: '$5 бонус', code: 'USD5-LITE' }
+    };
 
-<script>
-const emojis = ['💎','🔥','🍀','🎲','💰','🪙'];
-const prizeMap = {
-  '💎💎💎': { text: '$50 на баланс', code: 'USD50-ALFA' },
-  '🔥🔥🔥': { text: '$25 скидка', code: 'DISC25-X8G' },
-  '🍀🍀🍀': { text: 'Mystery Box', code: 'MYSTERY-BX5' },
-  'default': { text: '$5 бонус', code: 'USD5-LITE' }
-};
-
-function buildReels() {
-  ['reel1', 'reel2', 'reel3'].forEach(id => {
-    const el = document.getElementById(id);
-    el.innerHTML = '';
-    for (let i = 0; i < 20; i++) {
-      const sym = document.createElement('div');
-      sym.className = 'symbol';
-      sym.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-      el.appendChild(sym);
+    function buildReels() {
+      ['reel1', 'reel2', 'reel3'].forEach(id => {
+        const el = document.getElementById(id);
+        el.innerHTML = '';
+        for (let i = 0; i < 20; i++) {
+          const sym = document.createElement('div');
+          sym.className = 'symbol';
+          sym.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+          el.appendChild(sym);
+        }
+      });
     }
-  });
-}
 
-function pullHandle() {
-  const handle = document.getElementById('handle');
-  handle.classList.add('active');
-  document.getElementById('handleSound').play();
-  setTimeout(() => handle.classList.remove('active'), 500);
-  spin();
-}
+    function pullHandle() {
+      const handle = document.getElementById('handle');
+      handle.classList.add('active');
+      document.getElementById('handleSound').play();
+      setTimeout(() => handle.classList.remove('active'), 500);
+      spin();
+    }
 
-function spin() {
-  buildReels();
-  const reels = ['reel1','reel2','reel3'].map(id => document.getElementById(id));
-  const results = [];
+    function spin() {
+      buildReels();
+      const reels = ['reel1','reel2','reel3'].map(id => document.getElementById(id));
+      const results = [];
 
-  reels.forEach((reel, idx) => {
-    const offset = Math.floor(Math.random() * 17) + 1;
-    const pos = offset * 90;
-    setTimeout(() => {
-      reel.style.transform = `translateY(-${pos}px)`;
-      const symbol = reel.children[offset + 1].textContent;
-      results[idx] = symbol;
-      if (results.filter(Boolean).length === 3) showResult(results);
-    }, idx * 400);
-  });
-}
+      reels.forEach((reel, idx) => {
+        const offset = Math.floor(Math.random() * 17) + 1;
+        const pos = offset * 90;
+        setTimeout(() => {
+          reel.style.transform = `translateY(-${pos}px)`;
+          const symbol = reel.children[offset + 1].textContent;
+          results[idx] = symbol;
+          if (results.filter(Boolean).length === 3) showResult(results);
+        }, idx * 400);
+      });
+    }
 
-function showResult(res) {
-  const combo = res.join('');
-  const prize = prizeMap[combo] || prizeMap['default'];
-  document.getElementById('winSound').play();
-  confetti({ particleCount: 120, spread: 90, origin: { y: 0.6 } });
-  document.getElementById('result').textContent = `🎉 Вы выиграли: ${prize.text}`;
-  document.getElementById('promoCode').textContent = prize.code;
-  document.getElementById('claimLink').href = `https://alfabit.org/?from=slots&code=${prize.code}`;
-  document.getElementById('promoBlock').style.display = 'block';
-}
+    function showResult(res) {
+      const combo = res.join('');
+      const prize = prizeMap[combo] || prizeMap['default'];
+      document.getElementById('winSound').play();
+      confetti({ particleCount: 120, spread: 90, origin: { y: 0.6 } });
+      document.getElementById('result').textContent = `🎉 Вы выиграли: ${prize.text}`;
+      document.getElementById('promoCode').textContent = prize.code;
+      document.getElementById('claimLink').href = `https://alfabit.org/?from=slots&code=${prize.code}`;
+      document.getElementById('promoBlock').style.display = 'block';
+    }
 
-function copyCode() {
-  const code = document.getElementById('promoCode').textContent;
-  navigator.clipboard.writeText(code).then(() => alert('Промокод скопирован!'));
-}
+    function copyCode() {
+      const code = document.getElementById('promoCode').textContent;
+      navigator.clipboard.writeText(code).then(() => alert('Промокод скопирован!'));
+    }
 
-buildReels();
-</script>
-
+    buildReels();
+  </script>
 </body>
 </html>
