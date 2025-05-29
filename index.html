@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Колесо удачи | AlfaBit.org</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:400,700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -12,7 +13,6 @@
       color: #ffffff;
       margin: 0;
       padding: 40px 20px;
-      overflow-x: hidden;
     }
     h1 {
       font-family: 'Orbitron', sans-serif;
@@ -49,7 +49,6 @@
       font-weight: bold;
       color: #00e676;
       font-family: 'Orbitron', sans-serif;
-      letter-spacing: 1px;
     }
     .firework {
       position: fixed;
@@ -94,10 +93,51 @@
     .alfabit-block a:hover {
       background-color: #00c85a;
     }
+    #promoBox {
+      margin-top: 20px;
+      display: none;
+    }
+    #promoCode {
+      background: #1e1e1e;
+      padding: 10px 20px;
+      border-radius: 6px;
+      border: 1px solid #f7a600;
+      font-family: monospace;
+      color: #f7a600;
+      font-size: 18px;
+      margin-right: 10px;
+    }
+    .copy-btn {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      background: #f7a600;
+      color: #121212;
+      font-weight: bold;
+      cursor: pointer;
+    }
     footer {
       margin-top: 50px;
       font-size: 14px;
       color: #777;
+    }
+
+    @media (max-width: 600px) {
+      canvas {
+        width: 300px !important;
+        height: 300px !important;
+      }
+      #promoCode {
+        font-size: 16px;
+      }
+      .alfabit-block a {
+        font-size: 16px;
+        padding: 10px 20px;
+      }
+      #spin {
+        width: 90%;
+        font-size: 18px;
+      }
     }
   </style>
 </head>
@@ -111,7 +151,15 @@
 <div class="alfabit-block" id="rewardBlock" style="display:none;">
   <h2>🎁 Поздравляем!</h2>
   <p id="rewardText"></p>
-  <a id="claimLink" href="#" target="_blank">Забрать приз на AlfaBit</a>
+  <a id="claimLink" href="#" target="_blank">Забрать приз на Alfabit.org</a>
+
+  <div id="promoBox">
+    <p>Ваш промокод:</p>
+    <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap;">
+      <span id="promoCode">USD50-ALFA</span>
+      <button class="copy-btn" onclick="copyCode()">📋</button>
+    </div>
+  </div>
 </div>
 
 <footer>
@@ -120,18 +168,17 @@
 
 <script>
   const prizeMap = {
-    A1: { hint: '🎁 Промо на $50' },
-    A2: { hint: '🚀 Скидка 50%' },
-    A3: { hint: '🔥 Кэшбек 15%' },
-    A4: { hint: '🎉 Бонус 10 TON' },
-    A5: { hint: '👑 Уровень Gold' },
-    A6: { hint: '🎁 Mystery Box' },
-    A7: { hint: '🎯 10% в трейде' },
-    A8: { hint: '💰 $25 на депозит' },
+    A1: { hint: '🎁 Промо на $50', code: 'USD50-ALFA' },
+    A2: { hint: '🚀 Скидка 50%', code: 'DISC50-T9LL' },
+    A3: { hint: '🔥 Кэшбек 15%', code: 'CASHBACK15-AZ8' },
+    A4: { hint: '🎉 Бонус 10 TON', code: 'TON10-GT2B-A3FD' },
+    A5: { hint: '👑 Уровень Gold', code: 'GOLD-ALFA-2025' },
+    A6: { hint: '🎁 Mystery Box', code: 'MYSTERY-A8X7' },
+    A7: { hint: '🎯 10% в трейде', code: 'TRADE10-XCZ1' },
+    A8: { hint: '💰 $25 на депозит', code: 'USD25-ALFA' },
   };
 
   const prizeKeys = Object.keys(prizeMap);
-
   const canvas = document.getElementById('wheel');
   const ctx = canvas.getContext('2d');
   const radius = canvas.width / 2;
@@ -205,6 +252,8 @@
         document.getElementById('result').textContent = `🎉 Ваш приз: ${prize.hint}`;
         document.getElementById('rewardText').innerHTML = `Вы выиграли <b>${prize.hint}</b>!<br>Чтобы получить его — перейдите на сайт и активируйте подарок.`;
         document.getElementById('claimLink').href = `https://alfabit.org/?from=wheel&id=${key}`;
+        document.getElementById('promoCode').textContent = prize.code;
+        document.getElementById('promoBox').style.display = 'block';
         document.getElementById('rewardBlock').style.display = 'block';
 
         showFireworks();
@@ -225,6 +274,13 @@
       document.body.appendChild(fw);
       setTimeout(() => fw.remove(), 800);
     }
+  }
+
+  function copyCode() {
+    const code = document.getElementById('promoCode').textContent;
+    navigator.clipboard.writeText(code).then(() => {
+      alert("Промокод скопирован!");
+    });
   }
 </script>
 
