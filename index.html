@@ -45,6 +45,60 @@
       font-weight: bold;
       color: #00e676;
     }
+    .promo-section {
+      margin-top: 40px;
+    }
+    input[type="text"] {
+      padding: 12px;
+      width: 250px;
+      font-size: 18px;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+      text-align: center;
+    }
+    button#apply {
+      margin-left: 10px;
+      padding: 12px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 6px;
+      background-color: #f7a600;
+      color: #121212;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button#apply:hover {
+      background-color: #e69500;
+    }
+    #message {
+      margin-top: 30px;
+      font-size: 20px;
+      padding: 15px;
+      background: linear-gradient(to right, #1b1b1b, #292929);
+      border: 2px solid #f7a600;
+      border-radius: 8px;
+      display: none;
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .firework {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      background: #f7a600;
+      border-radius: 50%;
+      animation: explode 0.8s ease-out forwards;
+    }
+    @keyframes explode {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(20); opacity: 0; }
+    }
   </style>
 </head>
 <body>
@@ -53,6 +107,13 @@
 <canvas id="wheel" width="400" height="400"></canvas>
 <button id="spin">КРУТИТЬ</button>
 <div id="result"></div>
+
+<div class="promo-section">
+  <h2 style="color:#f7a600;">🎁 Активируй свой промокод</h2>
+  <input type="text" id="promoInput" placeholder="Введите промокод">
+  <button id="apply">Применить</button>
+  <div id="message"></div>
+</div>
 
 <script>
   const prizes = [
@@ -66,7 +127,6 @@
     'TRYAGAIN'
   ];
 
-  const colors = ['#292929', '#333333', '#292929', '#333333', '#292929', '#333333', '#292929', '#333333'];
   const canvas = document.getElementById('wheel');
   const ctx = canvas.getContext('2d');
   const radius = canvas.width / 2;
@@ -80,13 +140,12 @@
     ctx.translate(radius, radius);
     ctx.rotate(angle);
     ctx.translate(-radius, -radius);
-
     for (let i = 0; i < prizes.length; i++) {
       const start = i * segmentAngle;
       ctx.beginPath();
       ctx.moveTo(radius, radius);
       ctx.arc(radius, radius, radius, start, start + segmentAngle);
-      ctx.fillStyle = colors[i % colors.length];
+      ctx.fillStyle = i % 2 === 0 ? '#292929' : '#333333';
       ctx.fill();
       ctx.save();
       ctx.translate(radius, radius);
@@ -97,10 +156,8 @@
       ctx.fillText(prizes[i], radius - 15, 6);
       ctx.restore();
     }
-
     ctx.restore();
-
-    // Указатель
+    // pointer
     ctx.beginPath();
     ctx.moveTo(radius - 10, 10);
     ctx.lineTo(radius + 10, 10);
@@ -114,15 +171,12 @@
   document.getElementById('spin').addEventListener('click', () => {
     if (spinning) return;
     spinning = true;
-
     const duration = 4000;
     const totalRotation = 6 * 2 * Math.PI + Math.random() * 2 * Math.PI;
     const start = performance.now();
-
     function easeOutCubic(t) {
       return 1 - Math.pow(1 - t, 3);
     }
-
     function animate(time) {
       const progress = (time - start) / duration;
       if (progress < 1) {
@@ -139,9 +193,37 @@
         spinning = false;
       }
     }
-
     requestAnimationFrame(animate);
   });
+
+  document.getElementById('apply').addEventListener('click', () => {
+    const input = document.getElementById('promoInput').value.trim().toUpperCase();
+    const message = document.getElementById('message');
+    if (prizes.includes(input)) {
+      showFireworks();
+      message.innerHTML = `
+        ✅ Вы активировали промокод <b>${input}</b><br><br>
+        💰 Вы выиграли <span style="color:#00e676;">$50</span>!<br>
+        👉 Чтобы получить деньги, <b><a href="https://alfabit.org" target="_blank" style="color:#f7a600;">пройдите регистрацию на alfabit.org</a></b>
+      `;
+      message.style.display = 'block';
+    } else {
+      message.textContent = '⛔ Неверный или недействующий промокод.';
+      message.style.display = 'block';
+    }
+  });
+
+  function showFireworks() {
+    for (let i = 0; i < 10; i++) {
+      const fw = document.createElement('div');
+      fw.className = 'firework';
+      fw.style.top = (50 + Math.random() * 20 - 10) + '%';
+      fw.style.left = (50 + Math.random() * 20 - 10) + '%';
+      fw.style.backgroundColor = ['#f7a600', '#00e676', '#ff4081'][Math.floor(Math.random() * 3)];
+      document.body.appendChild(fw);
+      setTimeout(() => fw.remove(), 800);
+    }
+  }
 </script>
 
 </body>
