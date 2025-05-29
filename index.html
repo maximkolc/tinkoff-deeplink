@@ -53,3 +53,125 @@
   <a class="button" href="https://online.sberbank.ru/" target="_blank">Открыть СберБанк Онлайн</a>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Колесо удачи</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      background: #f2f2f2;
+    }
+    canvas {
+      margin: 20px auto;
+      display: block;
+    }
+    #spin {
+      font-size: 20px;
+      padding: 10px 20px;
+      background: #0a6839;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 28px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🎡 Крути колесо!</h1>
+<canvas id="wheel" width="400" height="400"></canvas>
+<button id="spin">КРУТИТЬ</button>
+<div id="result"></div>
+
+<script>
+  const prizes = ['🎉', '😂', '🍕', '🌈', '💎', '🙈', '🔥', '🎁'];
+  const colors = ['#FFD700', '#FF6347', '#00CED1', '#FF69B4', '#ADFF2F', '#FF8C00', '#87CEEB', '#DA70D6'];
+  const canvas = document.getElementById('wheel');
+  const ctx = canvas.getContext('2d');
+  const radius = canvas.width / 2;
+  const segmentAngle = (2 * Math.PI) / prizes.length;
+  let rotation = 0;
+  let spinning = false;
+
+  function drawWheel() {
+    for (let i = 0; i < prizes.length; i++) {
+      const angle = i * segmentAngle;
+      ctx.beginPath();
+      ctx.moveTo(radius, radius);
+      ctx.arc(radius, radius, radius, angle, angle + segmentAngle);
+      ctx.fillStyle = colors[i];
+      ctx.fill();
+      ctx.save();
+      ctx.translate(radius, radius);
+      ctx.rotate(angle + segmentAngle / 2);
+      ctx.textAlign = "right";
+      ctx.fillStyle = "#000";
+      ctx.font = "28px sans-serif";
+      ctx.fillText(prizes[i], radius - 10, 10);
+      ctx.restore();
+    }
+
+    // Pointer
+    ctx.beginPath();
+    ctx.moveTo(radius - 10, 10);
+    ctx.lineTo(radius + 10, 10);
+    ctx.lineTo(radius, 40);
+    ctx.fillStyle = "#333";
+    ctx.fill();
+  }
+
+  drawWheel();
+
+  document.getElementById('spin').addEventListener('click', () => {
+    if (spinning) return;
+    spinning = true;
+    const spinTime = 4000;
+    const finalAngle = Math.random() * 2 * Math.PI;
+    const totalRotation = 8 * 2 * Math.PI + finalAngle;
+
+    const start = performance.now();
+
+    function animate(time) {
+      const progress = (time - start) / spinTime;
+      if (progress < 1) {
+        rotation = totalRotation * easeOut(progress);
+        renderWheel();
+        requestAnimationFrame(animate);
+      } else {
+        rotation = totalRotation;
+        renderWheel();
+        const resultIndex = prizes.length - 1 - Math.floor(((rotation % (2 * Math.PI)) / segmentAngle)) % prizes.length;
+        document.getElementById('result').textContent = `🎉 Ваш приз: ${prizes[resultIndex]}`;
+        spinning = false;
+      }
+    }
+
+    requestAnimationFrame(animate);
+  });
+
+  function easeOut(t) {
+    return 1 - (--t) * t * t * t;
+  }
+
+  function renderWheel() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
+    ctx.translate(radius, radius);
+    ctx.rotate(rotation);
+    ctx.translate(-radius, -radius);
+    drawWheel();
+    ctx.restore();
+  }
+</script>
+
+</body>
+</html>
