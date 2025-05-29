@@ -1,1 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎰 dApp Слоты | Alfabit — TON, BTC, NFT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:400,700&display=swap" rel="stylesheet" />
+  <audio id="spinSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_92854d3c14.mp3?filename=slot-machine-2-110353.mp3" preload="auto"></audio>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #fff;
+      font-family: 'Roboto', sans-serif;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      color: #f7a600;
+      font-size: 30px;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #f7a600aa;
+    }
+    .slots-container {
+      display: flex;
+      justify-content: center;
+      margin: 40px auto;
+    }
+    .slot {
+      font-size: 80px;
+      margin: 0 10px;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(247, 166, 0, 0.3);
+    }
+    .slot.spin {
+      animation: spinEffect 0.3s linear infinite;
+    }
+    @keyframes spinEffect {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    button {
+      background-color: #f7a600;
+      color: #000;
+      font-weight: bold;
+      font-size: 20px;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #f7a600aa;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #e69500;
+    }
+    .result {
+      margin-top: 30px;
+      font-size: 22px;
+      color: #00e676;
+      font-family: 'Orbitron', sans-serif;
+    }
+    .promo {
+      margin-top: 20px;
+      font-size: 20px;
+      background: #1e1e1e;
+      border: 1px solid #f7a600;
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-family: monospace;
+      color: #f7a600;
+    }
+    .copy-btn {
+      background-color: #00e676;
+      color: #000;
+      margin-left: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .claim {
+      display: block;
+      margin-top: 20px;
+      color: #121212;
+      background: #00e676;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 0 15px #00e676aa;
+    }
+    footer {
+      margin-top: 50px;
+      font-size: 14px;
+      color: #777;
+    }
+    @media (max-width: 600px) {
+      .slot {
+        font-size: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
 
+  <h1>🎰 dApp Слоты от Alfabit</h1>
+  <p>Испытай удачу в блокчейн-слотах! 🎲 Выигрывай TON, BTC-бонусы и трейдерские NFT в автомате от <strong>Alfabit</strong>.</p>
+
+  <div class="slots-container">
+    <div class="slot" id="slot1">🎲</div>
+    <div class="slot" id="slot2">🔥</div>
+    <div class="slot" id="slot3">💰</div>
+  </div>
+
+  <button onclick="spin()">КРУТИТЬ</button>
+
+  <div class="result" id="result"></div>
+  <div id="promoBlock" style="display:none;">
+    <div class="promo" id="promoCode">---</div>
+    <button class="copy-btn" onclick="copyCode()">📋 Копировать</button>
+    <a class="claim" id="claimLink" href="#" target="_blank">🔗 Забрать на Alfabit.org</a>
+  </div>
+
+  <p><a href="index.html" style="color:#00e676;">⬅️ Назад на главную (рулетка)</a></p>
+
+  <div style="margin-top: 30px; font-size: 16px; color: #aaa;">
+    🪙 Поддерживаются призы в TON, BTC, ETH. Розыгрыш на базе dApp-протокола Alfabit Chain.
+  </div>
+
+  <footer>
+    Организатор акции: <a href="https://alfabit.org" style="color:#f7a600;">alfabit.org</a> — криптовалютный мир трейдинга
+  </footer>
+
+  <script>
+    const emojis = ['💎','🔥','🍀','🎲','💰','🪙'];
+    const prizeMap = {
+      '💎💎💎': { text: '$50 на баланс', code: 'USD50-ALFA' },
+      '🔥🔥🔥': { text: '$25 скидка', code: 'DISC25-X8G' },
+      '🍀🍀🍀': { text: 'Mystery Box', code: 'MYSTERY-BX5' },
+      'default': { text: '$5 бонус', code: 'USD5-LITE' }
+    };
+
+    function spin() {
+      document.getElementById('spinSound').play();
+      const s1 = document.getElementById('slot1');
+      const s2 = document.getElementById('slot2');
+      const s3 = document.getElementById('slot3');
+      s1.classList.add('spin');
+      s2.classList.add('spin');
+      s3.classList.add('spin');
+
+      setTimeout(() => {
+        const r1 = emojis[Math.floor(Math.random()*emojis.length)];
+        const r2 = emojis[Math.floor(Math.random()*emojis.length)];
+        const r3 = emojis[Math.floor(Math.random()*emojis.length)];
+        s1.textContent = r1;
+        s2.textContent = r2;
+        s3.textContent = r3;
+        s1.classList.remove('spin');
+        s2.classList.remove('spin');
+        s3.classList.remove('spin');
+        const combo = r1 + r2 + r3;
+        const prize = prizeMap[combo] || prizeMap['default'];
+        document.getElementById('result').textContent = `🎉 Вы выиграли: ${prize.text}`;
+        document.getElementById('promoCode').textContent = prize.code;
+        document.getElementById('claimLink').href = `https://alfabit.org/?from=slots&code=${prize.code}`;
+        document.getElementById('promoBlock').style.display = 'block';
+      }, 1000);
+    }
+
+    function copyCode() {
+      const code = document.getElementById('promoCode').textContent;
+      navigator.clipboard.writeText(code).then(() => alert('Промокод скопирован!'));
+    }
+  </script>
+
+</body>
+</html>
