@@ -12,7 +12,7 @@
       color: #fff;
       font-family: 'Orbitron', sans-serif;
       text-align: center;
-      padding: 40px 20px;
+      padding: 30px 15px;
     }
 
     h1 {
@@ -20,6 +20,12 @@
       color: gold;
       text-shadow: 0 0 12px gold;
       margin-bottom: 10px;
+    }
+
+    .info {
+      font-size: 14px;
+      margin-bottom: 20px;
+      color: #ccc;
     }
 
     .slot-machine-container {
@@ -31,6 +37,7 @@
       box-shadow: 0 0 40px gold;
       padding: 30px 20px;
       position: relative;
+      overflow: hidden;
     }
 
     .reels {
@@ -69,8 +76,8 @@
 
     .handle {
       position: absolute;
-      right: -40px;
-      top: 40px;
+      right: 10px;
+      top: 20px;
       width: 15px;
       height: 100px;
       background: linear-gradient(to bottom, #ccc, #999);
@@ -78,6 +85,7 @@
       cursor: pointer;
       transform-origin: top;
       transition: transform 0.3s;
+      z-index: 2;
     }
 
     .handle:after {
@@ -127,10 +135,43 @@
       text-decoration: none;
     }
 
+    .rules {
+      font-size: 13px;
+      color: #aaa;
+      margin-top: 30px;
+    }
+
     footer {
       margin-top: 40px;
       font-size: 14px;
       color: #777;
+    }
+
+    @media (max-width: 480px) {
+      .reel {
+        width: 70px;
+        height: 70px;
+      }
+
+      .symbol {
+        font-size: 48px;
+        height: 70px;
+        line-height: 70px;
+      }
+
+      .handle {
+        top: 10px;
+        right: 5px;
+        height: 70px;
+        width: 10px;
+      }
+
+      .handle:after {
+        width: 20px;
+        height: 20px;
+        left: -5px;
+        bottom: -15px;
+      }
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -138,6 +179,11 @@
 <body>
 
 <h1>🎰 Премиум слот от Alfabit</h1>
+<div class="info">
+  Выигрывай до $50 и обменивай на крипту на <a href="https://alfabit.org" style="color:gold;">alfabit.org</a><br/>
+  Примерные курсы: 1 TON ≈ 3.2 USD | 1 BTC ≈ 68,000 USD | 1 ETH ≈ 3,600 USD
+</div>
+
 <div class="slot-machine-container">
   <div class="reels">
     <div class="reel"><div class="symbols" id="reel1"></div></div>
@@ -153,8 +199,14 @@
   </div>
 </div>
 
+<div class="rules">
+  Правила выигрыша:<br/>
+  💎💎💎 → $50 | 🔥🔥🔥 → $25 | 🍀🍀🍀 → Mystery Box<br/>
+  Любая другая комбинация → $5 бонус
+</div>
+
 <footer>
-  <p>© Alfabit.org — обменивай бонусы на TON, BTC, ETH</p>
+  © Alfabit.org — получи приз и обменяй на TON, BTC или ETH
 </footer>
 
 <audio id="handleSound" src="https://cdn.pixabay.com/download/audio/2022/10/12/audio_6ef51a0b60.mp3?filename=lever-pull-112441.mp3" preload="auto"></audio>
@@ -225,5 +277,6 @@ function copyCode() {
 
 buildReels();
 </script>
+
 </body>
 </html>
