@@ -36,7 +36,7 @@
     .reel-strip {
       display: flex;
       flex-direction: column;
-      animation: spin 2s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+      transition: transform 2s cubic-bezier(0.33, 1, 0.68, 1);
     }
     .symbol {
       font-size: 48px;
@@ -68,16 +68,25 @@
       font-size: 20px;
       margin-bottom: 10px;
     }
-    @keyframes spin {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-1440px); } /* 18 symbols x 80px */
+    .rules {
+      margin-top: 30px;
+      background: #1a1d23;
+      padding: 14px;
+      font-size: 14px;
+      border-radius: 10px;
+      border: 1px solid #00ffc2;
+      color: #ccc;
+    }
+    .rules strong {
+      color: #fff;
     }
   </style>
 </head>
 <body>
 
   <h1>🎰 Alfabit Крипто-слоты</h1>
-  <p>Крути барабаны и получи приз, который можно активировать на <a href="https://alfabit.org" target="_blank" style="color:#00ffc2">alfabit.org</a></p>
+  <p>Крути барабаны и получи шанс выиграть до <strong>$50</strong>!<br/>
+     Все выигрыши можно активировать на <a href="https://alfabit.org" target="_blank" style="color:#00ffc2">alfabit.org</a></p>
 
   <div class="slot-machine">
     <div class="reel-container"><div class="reel-strip" id="reel1"></div></div>
@@ -93,22 +102,34 @@
     <a href="https://alfabit.org" target="_blank" style="display:inline-block;margin-top:10px;color:#000;background:#00ffc2;padding:10px 14px;border-radius:8px;text-decoration:none;">Забрать на Alfabit</a>
   </div>
 
+  <div class="rules">
+    <strong>Правила участия:</strong><br/>
+    • Один прокрут в сутки<br/>
+    • Промокод выпадает с вероятностью 20%<br/>
+    • Все призы активируются на <a href="https://alfabit.org" target="_blank">alfabit.org</a><br/>
+  </div>
+
   <audio id="soundSpin" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4fa9c44b39.mp3?filename=arcade-magic-spin-24043.mp3"></audio>
   <audio id="soundWin" src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_020b2c070e.mp3?filename=success-1-6297.mp3"></audio>
 
   <script>
     const symbols = ['💎','🔥','🍀','🎲','💰','🪙','🧿'];
-    const prizeMap = {
-      '💎💎💎': 'WIN50-ALFA',
-      '🔥🔥🔥': 'HOT25-ALFA',
-      '🍀🍀🍀': 'LUCKY-BOX',
-      'default': 'BONUS5-ALFA'
-    };
+    const prizes = ['WIN50-ALFA', 'HOT25-ALFA', 'LUCKY-BOX', 'BONUS5-ALFA'];
 
-    function fillReel(id) {
+    function fillReel(id, resultSymbol) {
       const reel = document.getElementById(id);
       reel.innerHTML = '';
-      for (let i = 0; i < 18; i++) {
+      for (let i = 0; i < 10; i++) {
+        const el = document.createElement('div');
+        el.className = 'symbol';
+        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        reel.appendChild(el);
+      }
+      const middle = document.createElement('div');
+      middle.className = 'symbol';
+      middle.textContent = resultSymbol;
+      reel.appendChild(middle);
+      for (let i = 0; i < 5; i++) {
         const el = document.createElement('div');
         el.className = 'symbol';
         el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
@@ -118,31 +139,36 @@
 
     function spinReels() {
       document.getElementById("soundSpin").play();
+      const isWin = Math.random() < 0.2;
+      const chosenSymbol = isWin ? symbols[Math.floor(Math.random() * 3)] : symbols[Math.floor(Math.random() * symbols.length)];
+      const finalCombo = [chosenSymbol, chosenSymbol, chosenSymbol];
+
+      fillReel('reel1', finalCombo[0]);
+      fillReel('reel2', finalCombo[1]);
+      fillReel('reel3', finalCombo[2]);
+
       ['reel1','reel2','reel3'].forEach((id, i) => {
         const reel = document.getElementById(id);
-        reel.style.animation = 'none';
-        reel.offsetHeight; // force reflow
-        fillReel(id);
-        reel.style.animation = `spin ${2 + i * 0.3}s cubic-bezier(0.33, 1, 0.68, 1) forwards`;
+        reel.style.transition = 'none';
+        reel.style.transform = 'translateY(0)';
+        void reel.offsetWidth;
+        setTimeout(() => {
+          reel.style.transition = `transform ${2 + i * 0.2}s cubic-bezier(0.33, 1, 0.68, 1)`;
+          reel.style.transform = 'translateY(-640px)';
+        }, 50);
       });
 
-      setTimeout(showResult, 2800);
+      setTimeout(() => {
+        if (isWin) {
+          document.getElementById("soundWin").play();
+          document.getElementById("promoCode").textContent = prizes[Math.floor(Math.random() * prizes.length)];
+          document.getElementById("promoBlock").style.display = "block";
+        } else {
+          document.getElementById("promoBlock").style.display = "none";
+          alert("😢 Сегодня не повезло. Попробуйте снова завтра!");
+        }
+      }, 2600);
     }
-
-    function showResult() {
-      document.getElementById("soundWin").play();
-      const r1 = document.getElementById("reel1").children[6].textContent;
-      const r2 = document.getElementById("reel2").children[6].textContent;
-      const r3 = document.getElementById("reel3").children[6].textContent;
-      const combo = r1 + r2 + r3;
-      const code = prizeMap[combo] || prizeMap['default'];
-      document.getElementById("promoCode").textContent = code;
-      document.getElementById("promoBlock").style.display = "block";
-    }
-
-    fillReel("reel1");
-    fillReel("reel2");
-    fillReel("reel3");
   </script>
 </body>
 </html>
