@@ -66,6 +66,7 @@
       padding: 16px;
       border: 1px dashed #00ffc2;
       border-radius: 12px;
+      display: none;
     }
     .promo strong {
       display: block;
@@ -129,13 +130,13 @@
 
   <script>
     const symbols = [
-      { name: 'Bitcoin', img: 'https://img.icons8.com/color/48/000000/bitcoin--v1.png' },
-      { name: 'Ethereum', img: 'https://img.icons8.com/color/48/000000/ethereum.png' },
-      { name: 'Litecoin', img: 'https://img.icons8.com/color/48/000000/litecoin.png' },
-      { name: 'Ripple', img: 'https://img.icons8.com/color/48/000000/ripple.png' },
-      { name: 'Cardano', img: 'https://img.icons8.com/color/48/000000/cardano.png' },
-      { name: 'Dogecoin', img: 'https://img.icons8.com/color/48/000000/dogecoin.png' },
-      { name: 'Tether', img: 'https://img.icons8.com/color/48/000000/tether.png' }
+      { name: 'Bitcoin', img: 'https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=025' },
+      { name: 'Ethereum', img: 'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=025' },
+      { name: 'Litecoin', img: 'https://cryptologos.cc/logos/litecoin-ltc-logo.png?v=025' },
+      { name: 'Ripple', img: 'https://cryptologos.cc/logos/xrp-xrp-logo.png?v=025' },
+      { name: 'Cardano', img: 'https://cryptologos.cc/logos/cardano-ada-logo.png?v=025' },
+      { name: 'Dogecoin', img: 'https://cryptologos.cc/logos/dogecoin-doge-logo.png?v=025' },
+      { name: 'Tether', img: 'https://cryptologos.cc/logos/tether-usdt-logo.png?v=025' }
     ];
     const prizes = [
       'BONUS1-ALFA', 'BONUS5-ALFA', 'BONUS10-ALFA',
@@ -166,7 +167,9 @@
     }
 
     function spinReels() {
+      document.getElementById("promoBlock").style.display = "none";
       document.getElementById("soundSpin").play();
+
       const chosenSymbol = symbols[Math.floor(Math.random() * symbols.length)];
       const finalCombo = [chosenSymbol, chosenSymbol, chosenSymbol];
 
