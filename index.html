@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Колесо промокодов</title>
+  <title>Колесо удачи | AlfaBit.org</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:400,700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -45,57 +45,11 @@
     }
     #result {
       margin-top: 25px;
-      font-size: 24px;
+      font-size: 22px;
       font-weight: bold;
       color: #00e676;
       font-family: 'Orbitron', sans-serif;
       letter-spacing: 1px;
-    }
-    .promo-section {
-      margin-top: 50px;
-    }
-    input[type="text"] {
-      padding: 14px;
-      width: 260px;
-      font-size: 18px;
-      border-radius: 8px;
-      border: 2px solid #f7a600;
-      background-color: #1e1e1e;
-      color: #fff;
-      text-align: center;
-      outline: none;
-      box-shadow: 0 0 10px rgba(247, 166, 0, 0.4);
-    }
-    button#apply {
-      margin-left: 10px;
-      padding: 14px 22px;
-      font-size: 18px;
-      border: none;
-      border-radius: 8px;
-      background-color: #f7a600;
-      color: #121212;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      box-shadow: 0 0 15px rgba(247, 166, 0, 0.5);
-    }
-    button#apply:hover {
-      background-color: #e69500;
-    }
-    #message {
-      margin-top: 30px;
-      font-size: 20px;
-      padding: 20px;
-      background: linear-gradient(to right, #1f1f1f, #292929);
-      border: 2px solid #f7a600;
-      border-radius: 10px;
-      display: none;
-      animation: fadeIn 1s ease-in-out;
-      box-shadow: 0 0 20px rgba(247, 166, 0, 0.3);
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to   { opacity: 1; transform: scale(1); }
     }
     .firework {
       position: fixed;
@@ -107,43 +61,81 @@
       border-radius: 50%;
       animation: explode 0.8s ease-out forwards;
       pointer-events: none;
+      z-index: 999;
     }
     @keyframes explode {
       0% { transform: scale(1); opacity: 1; }
       100% { transform: scale(20); opacity: 0; }
     }
+    .alfabit-block {
+      margin-top: 40px;
+      padding: 20px;
+      background: linear-gradient(to right, #1f1f1f, #292929);
+      border: 2px solid #f7a600;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(247, 166, 0, 0.3);
+    }
+    .alfabit-block h2 {
+      margin: 0 0 15px;
+      color: #f7a600;
+      font-family: 'Orbitron', sans-serif;
+    }
+    .alfabit-block a {
+      text-decoration: none;
+      background-color: #00e676;
+      padding: 12px 24px;
+      border-radius: 6px;
+      display: inline-block;
+      margin-top: 10px;
+      color: #121212;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    .alfabit-block a:hover {
+      background-color: #00c85a;
+    }
+    footer {
+      margin-top: 50px;
+      font-size: 14px;
+      color: #777;
+    }
   </style>
 </head>
 <body>
 
-<h1>🚀 Колесо удачи: получи свой бонус!</h1>
+<h1>🎯 Колесо удачи от AlfaBit</h1>
 <canvas id="wheel" width="400" height="400"></canvas>
 <button id="spin">КРУТИТЬ</button>
 <div id="result"></div>
 
-<div class="promo-section">
-  <h2 style="color:#f7a600;">🎁 Активируй промокод</h2>
-  <input type="text" id="promoInput" placeholder="Введите промокод">
-  <button id="apply">Применить</button>
-  <div id="message"></div>
+<div class="alfabit-block" id="rewardBlock" style="display:none;">
+  <h2>🎁 Поздравляем!</h2>
+  <p id="rewardText"></p>
+  <a id="claimLink" href="#" target="_blank">Забрать приз на AlfaBit</a>
 </div>
 
+<footer>
+  Организатор акции: <a href="https://alfabit.org" style="color:#f7a600;">alfabit.org</a>
+</footer>
+
 <script>
-  const prizes = [
-    'PROMO100',
-    'DISCOUNT50',
-    'FREEDELIVERY',
-    'BONUS10',
-    'HELLO2025',
-    'WHEELWIN',
-    'LUCKY7',
-    'TRYAGAIN'
-  ];
+  const prizeMap = {
+    A1: { hint: '🎁 Промо на $50' },
+    A2: { hint: '🚀 Скидка 50%' },
+    A3: { hint: '🔥 Кэшбек 15%' },
+    A4: { hint: '🎉 Бонус 10 TON' },
+    A5: { hint: '👑 Уровень Gold' },
+    A6: { hint: '🎁 Mystery Box' },
+    A7: { hint: '🎯 10% в трейде' },
+    A8: { hint: '💰 $25 на депозит' },
+  };
+
+  const prizeKeys = Object.keys(prizeMap);
 
   const canvas = document.getElementById('wheel');
   const ctx = canvas.getContext('2d');
   const radius = canvas.width / 2;
-  const segmentAngle = 2 * Math.PI / prizes.length;
+  const segmentAngle = 2 * Math.PI / prizeKeys.length;
   let currentAngle = 0;
   let spinning = false;
 
@@ -153,7 +145,7 @@
     ctx.translate(radius, radius);
     ctx.rotate(angle);
     ctx.translate(-radius, -radius);
-    for (let i = 0; i < prizes.length; i++) {
+    for (let i = 0; i < prizeKeys.length; i++) {
       const start = i * segmentAngle;
       ctx.beginPath();
       ctx.moveTo(radius, radius);
@@ -166,11 +158,11 @@
       ctx.textAlign = "right";
       ctx.fillStyle = "#f7a600";
       ctx.font = "bold 16px Roboto, sans-serif";
-      ctx.fillText(prizes[i], radius - 15, 6);
+      ctx.fillText(prizeMap[prizeKeys[i]].hint, radius - 15, 6);
       ctx.restore();
     }
     ctx.restore();
-    // стрелка
+    // pointer
     ctx.beginPath();
     ctx.moveTo(radius - 10, 10);
     ctx.lineTo(radius + 10, 10);
@@ -184,12 +176,17 @@
   document.getElementById('spin').addEventListener('click', () => {
     if (spinning) return;
     spinning = true;
+    document.getElementById('result').textContent = '';
+    document.getElementById('rewardBlock').style.display = 'none';
+
     const duration = 4000;
     const totalRotation = 6 * 2 * Math.PI + Math.random() * 2 * Math.PI;
     const start = performance.now();
+
     function easeOutCubic(t) {
       return 1 - Math.pow(1 - t, 3);
     }
+
     function animate(time) {
       const progress = (time - start) / duration;
       if (progress < 1) {
@@ -201,31 +198,21 @@
         currentAngle = totalRotation;
         drawWheel(currentAngle);
         const normalizedAngle = (2 * Math.PI - (currentAngle % (2 * Math.PI))) % (2 * Math.PI);
-        const index = Math.floor(normalizedAngle / segmentAngle) % prizes.length;
-        const prize = prizes[index];
-        document.getElementById('result').textContent = `🎉 Ваш промокод: ${prize}`;
-        document.getElementById('promoInput').value = prize;
+        const index = Math.floor(normalizedAngle / segmentAngle) % prizeKeys.length;
+        const key = prizeKeys[index];
+        const prize = prizeMap[key];
+
+        document.getElementById('result').textContent = `🎉 Ваш приз: ${prize.hint}`;
+        document.getElementById('rewardText').innerHTML = `Вы выиграли <b>${prize.hint}</b>!<br>Чтобы получить его — перейдите на сайт и активируйте подарок.`;
+        document.getElementById('claimLink').href = `https://alfabit.org/?from=wheel&id=${key}`;
+        document.getElementById('rewardBlock').style.display = 'block';
+
+        showFireworks();
         spinning = false;
       }
     }
-    requestAnimationFrame(animate);
-  });
 
-  document.getElementById('apply').addEventListener('click', () => {
-    const input = document.getElementById('promoInput').value.trim().toUpperCase();
-    const message = document.getElementById('message');
-    if (prizes.includes(input)) {
-      showFireworks();
-      message.innerHTML = `
-        ✅ Промокод <b>${input}</b> активирован!<br><br>
-        💸 Вы выиграли <span style="color:#00e676;">$50</span><br>
-        🔐 Чтобы получить деньги, <b><a href="https://alfabit.org" target="_blank" style="color:#f7a600;">пройдите регистрацию на alfabit.org</a></b>
-      `;
-      message.style.display = 'block';
-    } else {
-      message.textContent = '⛔ Неверный или недействующий промокод.';
-      message.style.display = 'block';
-    }
+    requestAnimationFrame(animate);
   });
 
   function showFireworks() {
