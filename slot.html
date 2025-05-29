@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Alfabit Slots: Real Spin</title>
+  <title>Alfabit Crypto Slots</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -39,9 +39,14 @@
       transition: transform 2s cubic-bezier(0.33, 1, 0.68, 1);
     }
     .symbol {
-      font-size: 48px;
       height: 80px;
-      line-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .symbol img {
+      max-height: 60px;
+      max-width: 60px;
     }
     .spin-btn {
       padding: 12px 24px;
@@ -57,7 +62,6 @@
     }
     .promo {
       margin-top: 20px;
-      display: none;
       background: #13171d;
       padding: 16px;
       border: 1px dashed #00ffc2;
@@ -80,13 +84,23 @@
     .rules strong {
       color: #fff;
     }
+    a.cta-button {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 10px 18px;
+      font-weight: bold;
+      color: #000;
+      background: #00ffc2;
+      border-radius: 10px;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
 
   <h1>🎰 Alfabit Крипто-слоты</h1>
-  <p>Крути барабаны и получи шанс выиграть до <strong>$50</strong>!<br/>
-     Все выигрыши можно активировать на <a href="https://alfabit.org" target="_blank" style="color:#00ffc2">alfabit.org</a></p>
+  <p>Крути криптобарабаны и получи гарантированный приз от <strong>$1 до $50</strong>!<br/>
+     Все призы активируются на <a href="https://alfabit.org" target="_blank" style="color:#00ffc2">alfabit.org</a></p>
 
   <div class="slot-machine">
     <div class="reel-container"><div class="reel-strip" id="reel1"></div></div>
@@ -99,22 +113,34 @@
   <div class="promo" id="promoBlock">
     <strong>🎉 Вы выиграли промокод!</strong>
     <div id="promoCode">ALFA-XXXX</div>
-    <a href="https://alfabit.org" target="_blank" style="display:inline-block;margin-top:10px;color:#000;background:#00ffc2;padding:10px 14px;border-radius:8px;text-decoration:none;">Забрать на Alfabit</a>
+    <a class="cta-button" href="https://alfabit.org" target="_blank">Забрать на Alfabit</a>
   </div>
 
   <div class="rules">
     <strong>Правила участия:</strong><br/>
-    • Один прокрут в сутки<br/>
-    • Промокод выпадает с вероятностью 20%<br/>
-    • Все призы активируются на <a href="https://alfabit.org" target="_blank">alfabit.org</a><br/>
+    • Прокрутить можно 1 раз в сутки<br/>
+    • Приз гарантирован при каждом вращении<br/>
+    • Номинал промокода определяется случайным образом<br/>
+    • Все коды активируются на <a href="https://alfabit.org" target="_blank">alfabit.org</a>
   </div>
 
   <audio id="soundSpin" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4fa9c44b39.mp3?filename=arcade-magic-spin-24043.mp3"></audio>
   <audio id="soundWin" src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_020b2c070e.mp3?filename=success-1-6297.mp3"></audio>
 
   <script>
-    const symbols = ['💎','🔥','🍀','🎲','💰','🪙','🧿'];
-    const prizes = ['WIN50-ALFA', 'HOT25-ALFA', 'LUCKY-BOX', 'BONUS5-ALFA'];
+    const symbols = [
+      { name: 'Bitcoin', img: 'https://img.icons8.com/color/48/000000/bitcoin--v1.png' },
+      { name: 'Ethereum', img: 'https://img.icons8.com/color/48/000000/ethereum.png' },
+      { name: 'Litecoin', img: 'https://img.icons8.com/color/48/000000/litecoin.png' },
+      { name: 'Ripple', img: 'https://img.icons8.com/color/48/000000/ripple.png' },
+      { name: 'Cardano', img: 'https://img.icons8.com/color/48/000000/cardano.png' },
+      { name: 'Dogecoin', img: 'https://img.icons8.com/color/48/000000/dogecoin.png' },
+      { name: 'Tether', img: 'https://img.icons8.com/color/48/000000/tether.png' }
+    ];
+    const prizes = [
+      'BONUS1-ALFA', 'BONUS5-ALFA', 'BONUS10-ALFA',
+      'BONUS15-ALFA', 'BONUS25-ALFA', 'BONUS50-ALFA'
+    ];
 
     function fillReel(id, resultSymbol) {
       const reel = document.getElementById(id);
@@ -122,25 +148,26 @@
       for (let i = 0; i < 10; i++) {
         const el = document.createElement('div');
         el.className = 'symbol';
-        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        const randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+        el.innerHTML = `<img src="${randomSymbol.img}" alt="${randomSymbol.name}">`;
         reel.appendChild(el);
       }
       const middle = document.createElement('div');
       middle.className = 'symbol';
-      middle.textContent = resultSymbol;
+      middle.innerHTML = `<img src="${resultSymbol.img}" alt="${resultSymbol.name}">`;
       reel.appendChild(middle);
       for (let i = 0; i < 5; i++) {
         const el = document.createElement('div');
         el.className = 'symbol';
-        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        const randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+        el.innerHTML = `<img src="${randomSymbol.img}" alt="${randomSymbol.name}">`;
         reel.appendChild(el);
       }
     }
 
     function spinReels() {
       document.getElementById("soundSpin").play();
-      const isWin = Math.random() < 0.2;
-      const chosenSymbol = isWin ? symbols[Math.floor(Math.random() * 3)] : symbols[Math.floor(Math.random() * symbols.length)];
+      const chosenSymbol = symbols[Math.floor(Math.random() * symbols.length)];
       const finalCombo = [chosenSymbol, chosenSymbol, chosenSymbol];
 
       fillReel('reel1', finalCombo[0]);
@@ -159,14 +186,10 @@
       });
 
       setTimeout(() => {
-        if (isWin) {
-          document.getElementById("soundWin").play();
-          document.getElementById("promoCode").textContent = prizes[Math.floor(Math.random() * prizes.length)];
-          document.getElementById("promoBlock").style.display = "block";
-        } else {
-          document.getElementById("promoBlock").style.display = "none";
-          alert("😢 Сегодня не повезло. Попробуйте снова завтра!");
-        }
+        document.getElementById("soundWin").play();
+        document.getElementById("promoCode").textContent =
+          prizes[Math.floor(Math.random() * prizes.length)];
+        document.getElementById("promoBlock").style.display = "block";
       }, 2600);
     }
   </script>
