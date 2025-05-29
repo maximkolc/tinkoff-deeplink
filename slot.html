@@ -4,18 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Alfabit Crypto Slots</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Inter', sans-serif;
       background: radial-gradient(circle, #0d1117 0%, #000 100%);
-      color: #00ffc2;
+      color: #ffffff;
       text-align: center;
       padding: 20px;
     }
     h1 {
-      font-size: 24px;
+      font-size: 26px;
+      margin-bottom: 10px;
     }
     .slot-machine {
       margin: 30px auto;
@@ -45,8 +46,8 @@
       justify-content: center;
     }
     .symbol img {
-      max-height: 60px;
-      max-width: 60px;
+      max-height: 50px;
+      max-width: 50px;
     }
     .spin-btn {
       padding: 12px 24px;
@@ -60,7 +61,7 @@
       margin-top: 20px;
       box-shadow: 0 0 10px #00ffc288;
     }
-    .promo {
+        .promo {
       margin-top: 20px;
       background: #13171d;
       padding: 16px;
@@ -101,7 +102,7 @@
 
   <h1>🎰 Alfabit Крипто-слоты</h1>
   <p>Крути криптобарабаны и получи гарантированный приз от <strong>$1 до $50</strong>!<br/>
-     Все призы активируются на <a href="https://alfabit.org" target="_blank" style="color:#00ffc2">alfabit.org</a></p>
+     Все призы активируются на <a href="https://alfabit.org" target="_blank" style="color:#ffffff">alfabit.org</a></p>
 
   <div class="slot-machine">
     <div class="reel-container"><div class="reel-strip" id="reel1"></div></div>
@@ -124,20 +125,20 @@
     • Номинал промокода определяется случайным образом<br/>
     • Все коды активируются на <a href="https://alfabit.org" target="_blank">alfabit.org</a>
   </div>
-
-  <audio id="soundSpin" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4fa9c44b39.mp3?filename=arcade-magic-spin-24043.mp3"></audio>
+    <audio id="soundSpin" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4fa9c44b39.mp3?filename=arcade-magic-spin-24043.mp3"></audio>
   <audio id="soundWin" src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_020b2c070e.mp3?filename=success-1-6297.mp3"></audio>
 
   <script>
     const symbols = [
-      { name: 'Bitcoin', img: 'https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=025' },
-      { name: 'Ethereum', img: 'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=025' },
-      { name: 'Litecoin', img: 'https://cryptologos.cc/logos/litecoin-ltc-logo.png?v=025' },
-      { name: 'Ripple', img: 'https://cryptologos.cc/logos/xrp-xrp-logo.png?v=025' },
-      { name: 'Cardano', img: 'https://cryptologos.cc/logos/cardano-ada-logo.png?v=025' },
-      { name: 'Dogecoin', img: 'https://cryptologos.cc/logos/dogecoin-doge-logo.png?v=025' },
-      { name: 'Tether', img: 'https://cryptologos.cc/logos/tether-usdt-logo.png?v=025' }
+      { name: 'Bitcoin', img: 'https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=027' },
+      { name: 'Ethereum', img: 'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=027' },
+      { name: 'Litecoin', img: 'https://cryptologos.cc/logos/litecoin-ltc-logo.png?v=027' },
+      { name: 'Ripple', img: 'https://cryptologos.cc/logos/xrp-xrp-logo.png?v=027' },
+      { name: 'Cardano', img: 'https://cryptologos.cc/logos/cardano-ada-logo.png?v=027' },
+      { name: 'Dogecoin', img: 'https://cryptologos.cc/logos/dogecoin-doge-logo.png?v=027' },
+      { name: 'Tether', img: 'https://cryptologos.cc/logos/tether-usdt-logo.png?v=027' }
     ];
+    
     const prizes = [
       'BONUS1-ALFA', 'BONUS5-ALFA', 'BONUS10-ALFA',
       'BONUS15-ALFA', 'BONUS25-ALFA', 'BONUS50-ALFA'
