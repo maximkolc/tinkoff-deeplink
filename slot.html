@@ -1,39 +1,46 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alfabit Premium Slots</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alfabit Promo Slots</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Orbitron', sans-serif;
       background: radial-gradient(ellipse at center, #10151a 0%, #0a0a0a 100%);
+      font-family: 'Orbitron', sans-serif;
       color: #00ffc2;
-      overflow-x: hidden;
+      padding: 0;
     }
     .slot-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 50px;
-      padding: 20px;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px 16px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .promo-intro {
+      font-size: 15px;
+      color: #ccc;
+      margin-bottom: 20px;
     }
     .reel-frame {
       display: flex;
+      justify-content: center;
+      gap: 12px;
       background: #1d1f22;
       border: 4px solid #00ffc2;
       border-radius: 20px;
-      padding: 20px;
+      padding: 10px;
       box-shadow: 0 0 20px #00ffc2aa;
-      margin-bottom: 20px;
-      position: relative;
     }
     .reel {
       width: 80px;
       height: 240px;
-      margin: 0 10px;
       overflow: hidden;
       border: 2px solid #00ffc2;
       border-radius: 12px;
@@ -52,44 +59,31 @@
       line-height: 80px;
       user-select: none;
     }
-    .handle {
-      width: 40px;
-      height: 100px;
-      background: linear-gradient(to top, #00ffc2, #009987);
-      border-radius: 20px;
-      position: absolute;
-      right: -60px;
-      top: 60px;
+    .spin-btn {
+      margin-top: 20px;
+      padding: 12px 30px;
+      background: linear-gradient(to right, #00ffc2, #00baba);
+      color: #191b1f;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 18px;
+      box-shadow: 0 0 15px #00ffc255;
       cursor: pointer;
-      box-shadow: 0 0 10px #00ffc2;
-      animation: pulse 1.6s infinite;
     }
-    .handle:active {
-      transform: scale(0.95);
-    }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 10px #00ffc2; }
-      50% { box-shadow: 0 0 25px #00ffc2; }
-      100% { box-shadow: 0 0 10px #00ffc2; }
-    }
-    .result {
-      font-size: 20px;
-      margin-top: 10px;
-      height: 28px;
+    .result, .promo-block, .lead-form, .rules {
+      margin-top: 20px;
     }
     .promo-block {
-      margin-top: 20px;
       background: #13171d;
-      padding: 16px 22px;
+      padding: 16px;
       border-radius: 12px;
       border: 1px dashed #00ffc2;
       display: none;
-      text-align: center;
     }
     .promo-code {
       font-size: 24px;
       font-weight: bold;
-      margin-bottom: 10px;
     }
     .claim-link {
       display: inline-block;
@@ -97,25 +91,23 @@
       text-decoration: none;
       color: #191b1f;
       background: #00ffc2;
-      padding: 8px 16px;
+      padding: 10px 16px;
       border-radius: 8px;
       font-weight: 600;
     }
-
-    /* Лид форма */
     .lead-form {
-      margin-top: 25px;
       display: none;
       flex-direction: column;
-      align-items: center;
       gap: 10px;
+      align-items: center;
     }
     .lead-form input {
-      padding: 10px 14px;
-      font-size: 16px;
+      padding: 10px;
       border-radius: 6px;
       border: none;
-      width: 260px;
+      width: 100%;
+      max-width: 320px;
+      font-size: 16px;
     }
     .lead-form button {
       background: #00ffc2;
@@ -126,26 +118,42 @@
       font-weight: bold;
       cursor: pointer;
     }
-    .lead-form button:hover {
-      background: #0fffdc;
+    .rules {
+      font-size: 14px;
+      color: #999;
+      text-align: left;
+      margin-top: 30px;
+      background: #111;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid #222;
+    }
+    .rules strong {
+      color: #fff;
     }
 
-    @media (max-width: 500px) {
-      .reel-frame { flex-direction: column; align-items: center; }
-      .reel { margin: 10px 0; }
-      .handle { right: -20px; top: 0; }
+    @media (max-width: 400px) {
+      .symbol { font-size: 40px; }
+      .reel { width: 70px; height: 200px; }
     }
   </style>
 </head>
 <body>
 
   <div class="slot-container">
+    <h1>🎰 Крипто-рулетка от Alfabit</h1>
+    <p class="promo-intro">
+      Прокрути и получи промокод до <strong>$50</strong>!<br/>
+      Все выигрыши можно использовать на <a href="https://alfabit.org" target="_blank" style="color:#00ffc2;font-weight:bold;">alfabit.org</a> — самой технологичной бирже криптовалют.
+    </p>
+
     <div class="reel-frame">
       <div class="reel"><div class="symbols" id="reel1"></div></div>
       <div class="reel"><div class="symbols" id="reel2"></div></div>
       <div class="reel"><div class="symbols" id="reel3"></div></div>
-      <div class="handle" onclick="pullHandle()"></div>
     </div>
+
+    <button class="spin-btn" onclick="pullHandle()">Крутить</button>
     <div class="result" id="result"></div>
 
     <div class="promo-block" id="promoBlock">
@@ -153,19 +161,27 @@
       <a href="https://alfabit.org" target="_blank" class="claim-link">Забрать на Alfabit</a>
     </div>
 
-    <!-- Форма захвата -->
     <form class="lead-form" id="leadForm" onsubmit="submitLead(event)">
-      <input type="email" id="email" placeholder="Ваш email для получения приза" required>
+      <input type="email" id="email" placeholder="Ваш email для получения приза" required />
       <button type="submit">Получить приз</button>
       <div id="formMsg" style="font-size:14px;color:#00ffc2;"></div>
     </form>
+
+    <div class="rules">
+      <p><strong>Правила участия:</strong></p>
+      <ul>
+        <li>Каждому пользователю даётся <strong>1 попытка в сутки</strong>.</li>
+        <li>Призовой промокод появляется сразу после прокрутки.</li>
+        <li>Чтобы получить приз, введите свой email — промокод будет отправлен туда.</li>
+        <li>Промокод можно активировать на <a href="https://alfabit.org" target="_blank">alfabit.org</a>.</li>
+        <li>Количество крупных призов ограничено — действуй сейчас!</li>
+      </ul>
+    </div>
   </div>
 
-  <!-- Звуки -->
   <audio id="soundSpin" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4fa9c44b39.mp3?filename=arcade-magic-spin-24043.mp3"></audio>
   <audio id="soundWin" src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_020b2c070e.mp3?filename=success-1-6297.mp3"></audio>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
   <script>
     const emojis = ['💎','🔥','🍀','🎲','💰','🪙','🧿'];
     const prizeMap = {
